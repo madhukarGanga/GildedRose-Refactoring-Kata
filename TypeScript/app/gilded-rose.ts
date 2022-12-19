@@ -45,6 +45,18 @@ const defaultQualityUpdaters = {
   Conjured: updateConjuredQualtiy,
 };
 
+/**
+ * This is refactored to inject quality updater function as part of constructor paramter.
+ * Qualityupdated is simple function which takes care of updating quality of one type item.
+ * qualtiyUpdaters object is Map of individual qualityUpdater function indexed by item name.
+ * GildedRose.updateQuality iterate through the items and invoke appropriate qualityUpdater function based on name.
+ *
+ * Improvement:
+ * - Quality updater injected removed strong coupling, introduced inversion of control.
+ * - Quality updater logic divided to simple understandable function which have single responisbility.
+ * - Extending functionality by introducing a new item type does not require much code change,
+ *   also not required to touch GildedRose class.
+ */
 export class GildedRose {
   items: Array<Item>;
   qualityUpdaters: {
